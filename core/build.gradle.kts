@@ -54,7 +54,7 @@ dependencies {
 tasks.register<Exec>("cloneLibrime") {
     onlyIf { !librimeDir.exists() }
     commandLine("git", "clone", "--recursive", "https://github.com/HNIdesu/librime-android.git", "librime")
-    workingDir = librimeDir.parentFile
+    workingDir(librimeDir.parentFile)
 }
 
 tasks.register<Exec>("downloadBoost") {
@@ -63,8 +63,8 @@ tasks.register<Exec>("downloadBoost") {
     if (System.getProperty("os.name").lowercase().contains("win"))
         commandLine("cmd", "/c","install-boost.bat","--download")
     else
-        commandLine("bash", "-c", "install-boost.sh","--download")
-    workingDir = librimeDir
+        commandLine("bash", "-c", "./install-boost.sh","--download")
+    workingDir(librimeDir)
 }
 
 fun getCommonBuildRimePluginOptions(abi :String) : Array<String> {
