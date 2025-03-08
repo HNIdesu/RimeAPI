@@ -234,10 +234,12 @@ abiList.forEach { abi ->
 }
 
 tasks.whenTaskAdded {
-    val matchResult = Regex("^buildCMake(Debug|Release)\\[(.+)\\]$").matchEntire(name)
+    val matchResult =
+        Regex("^buildCMake(Debug|Release)\\[(.+)\\]$").matchEntire(name)?:
+        Regex("^buildCMakeRelWithDebInfo\\[(.+)\\]$").matchEntire(name)
     if(matchResult != null)
     {
-        val abi = matchResult.groupValues[2]
+        val abi = matchResult.groupValues[matchResult.groupValues.size-1]
         dependsOn("installLibrime[$abi]")
     }
 }
