@@ -72,9 +72,19 @@ tasks.register<Exec>("downloadBoost") {
     }
 }
 
+tasks.register("installNinja") {
+    onlyIf { !File(projectDir.parentFile,"ninja").exists() }
+    doLast {
+        ProcessBuilder("wget","https://github.com/ninja-build/ninja/releases/download/v1.12.1/ninja-linux.zip")
+            .directory(projectDir.parentFile)
+            .start().waitFor()
+        ProcessBuilder("unzip","ninja-linux.zip").directory(projectDir.parentFile).start().waitFor()
+    }
+}
+
 tasks.whenTaskAdded {
     if(name.startsWith("configureCMake")){
-        dependsOn("downloadBoost")
+        dependsOn("installNinja","downloadBoost")
         return@whenTaskAdded
     }
     val matchResult =

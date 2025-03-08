@@ -27,6 +27,7 @@ ExternalProject_Add(
             -DYAML_CPP_BUILD_CONTRIB=OFF
             -DYAML_CPP_BUILD_TOOLS=OFF
             -DYAML_CPP_FORMAT_SOURCE=OFF
+			-DCMAKE_MAKE_PROGRAM=${CMAKE_SOURCE_DIR}/../ninja
 )
 
 ExternalProject_Add(
@@ -50,6 +51,7 @@ ExternalProject_Add(
             -DENABLE_BENCHMARK=OFF
             -DENABLE_DARTS=OFF
 			-DBUILD_DATA=OFF
+			-DCMAKE_MAKE_PROGRAM=${CMAKE_SOURCE_DIR}/../ninja
 )
 
 ExternalProject_Add(
@@ -68,6 +70,7 @@ ExternalProject_Add(
             -DANDROID_NDK=${ANDROID_NDK}
             -DANDROID_ABI=${ANDROID_ABI}
 			-DANDROID_PLATFORM=${ANDROID_PLATFORM}
+			-DCMAKE_MAKE_PROGRAM=${CMAKE_SOURCE_DIR}/../ninja
 )
 
 ExternalProject_Add(
@@ -89,6 +92,7 @@ ExternalProject_Add(
             -DLEVELDB_BUILD_TESTS=OFF
             -DLEVELDB_BUILD_BENCHMARKS=OFF
             -DLEVELDB_INSTALL=ON
+			-DCMAKE_MAKE_PROGRAM=${CMAKE_SOURCE_DIR}/../ninja
 )
 
 ExternalProject_Add(
@@ -106,6 +110,7 @@ ExternalProject_Add(
             -DANDROID_NDK=${ANDROID_NDK}
             -DANDROID_ABI=${ANDROID_ABI}
 			-DANDROID_PLATFORM=${ANDROID_PLATFORM}
+			-DCMAKE_MAKE_PROGRAM=${CMAKE_SOURCE_DIR}/../ninja
 )
 
 ExternalProject_Add(
@@ -123,7 +128,6 @@ ExternalProject_Add(
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON
             -DCMAKE_CXX_FLAGS=-Os
             -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
-            -DANDROID_NATIVE_API_LEVEL=${ANDROID_NATIVE_API_LEVEL}
             -DANDROID_NDK=${ANDROID_NDK}
             -DANDROID_ABI=${ANDROID_ABI}
 			-DANDROID_PLATFORM=${ANDROID_PLATFORM}
@@ -133,6 +137,7 @@ ExternalProject_Add(
             -DBUILD_STATIC=ON
             -DBUILD_DATA=ON
             -DBUILD_TEST=OFF
+			-DCMAKE_MAKE_PROGRAM=${CMAKE_SOURCE_DIR}/../ninja
 )
 
 ADD_DEPENDENCIES(librime  yaml-cpp leveldb opencc marisa-trie boost)
