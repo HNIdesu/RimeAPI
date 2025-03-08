@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.cli.jvm.main
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -49,6 +47,9 @@ android {
 
 val ndkDirectory = File(System.getenv("ANDROID_HOME"),"ndk/${android.ndkVersion}")
 val librimeDir = File(rootDir,"native/librime")
+dependencies {
+    implementation(libs.androidx.annotation.jvm)
+}
 
 tasks.register<Exec>("cloneLibrime") {
     onlyIf { !librimeDir.exists() }
@@ -115,7 +116,7 @@ abiList.forEach { abi ->
     tasks.register<Exec>("buildLibrime[$abi]") {
         onlyIf { !File(librimeDir,"build/$abi/lib/librime.so").exists() }
         dependsOn("configureLibrime[$abi]")
-        commandLine("cmake","--build","build/$abi","-parallel")
+        commandLine("cmake","--build","build/$abi","--parallel")
         isIgnoreExitValue = true
         workingDir(librimeDir)
     }
@@ -240,3 +241,4 @@ tasks.whenTaskAdded {
         dependsOn("installLibrime[$abi]")
     }
 }
+
