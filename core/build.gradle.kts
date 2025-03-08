@@ -66,7 +66,9 @@ tasks.register<Exec>("downloadBoost") {
         commandLine("bash", "-c", "./install-boost.sh","--download")
     workingDir(librimeDir)
 }
-
+tasks.register<Exec>("checkCmake") {
+    commandLine("cmake","--version")
+}
 fun getCommonBuildRimePluginOptions(abi :String) : Array<String> {
     return arrayOf(
         "-DCMAKE_INSTALL_PREFIX=${librimeDir.absolutePath}",
@@ -240,7 +242,7 @@ tasks.whenTaskAdded {
     if(matchResult != null)
     {
         val abi = matchResult.groupValues[matchResult.groupValues.size-1]
-        dependsOn("installLibrime[$abi]")
+        dependsOn("checkCmake","installLibrime[$abi]")
     }
 }
 
