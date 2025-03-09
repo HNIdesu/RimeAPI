@@ -48,6 +48,7 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.github.hnidesu.rimeapi"
+            version = "1.0.0"
             artifactId = "core"
             afterEvaluate {
                 from(components["release"])
