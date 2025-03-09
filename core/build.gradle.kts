@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("maven-publish")
 }
 
 android {
@@ -39,6 +40,18 @@ android {
         cmake {
             path = file("../native/CMakeLists.txt")
             version = "3.22.1"
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.github.hnidesu.rimeapi"
+            artifactId = "core"
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 }
