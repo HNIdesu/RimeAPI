@@ -57,7 +57,9 @@ COMMON_BUILD_PLUGIN_OPTIONS=(\
 if [ ! -f "$LIBRIME_DIR/CMakeLists.txt" ]; then
 	cd $SOURCE_DIR
 	git clone --recursive https://github.com/HNIdesu/librime-android.git librime
+	git checkout 3eb539
 	cd $LIBRIME_DIR
+
 	./install-boost.sh --download
 fi
 
