@@ -28,6 +28,6 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-    implementation("com.github.HNIdesu:RimeAPI:1.0.0")
+    implementation("com.github.HNIdesu:RimeAPI:1.1.0")
 }
 ```
