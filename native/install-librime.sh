@@ -57,24 +57,19 @@ COMMON_BUILD_PLUGIN_OPTIONS=(\
 if [ ! -f "$LIBRIME_DIR/CMakeLists.txt" ]; then
 	cd $SOURCE_DIR
 	git clone --recursive https://github.com/HNIdesu/librime-android.git librime
-	git checkout 3eb539
+	git checkout e751bae
 	cd $LIBRIME_DIR
-
-	./install-boost.sh --download
 fi
 
 build_and_install_boost() {
-    boost_dir=$(find "$LIBRIME_DIR/deps" -maxdepth 1 -type d -name boost*)
-    if [ -z $boost_dir ]; then
-        echo "Can not find boost." >&2
-        exit -1
-    fi
+    echo "Start to build boost..."
+	boost_dir=$(find "$LIBRIME_DIR/deps" -maxdepth 1 -type d -name boost*)
+	if [ -z $boost_dir ]; then
+		$LIBRIME_DIR/install-boost.sh --download
+		boost_dir=$(find "$LIBRIME_DIR/deps" -maxdepth 1 -type d -name boost*)
+	fi
 	cd $boost_dir
-	echo "Start to build boost..."
-	rm -rf build
-	cmake . -Bbuild ${COMMON_BUILD_PLUGIN_OPTIONS[@]}
-	cmake --build build -j16
-	cmake --install build
+	cp -r boost $LIBRIME_DIR/include
 }
 
 build_and_install_glog() {
